@@ -1,7 +1,7 @@
-// lab8_2.cpp
 //inheritance from String class
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <cstring>                //for strcpy(), etc.
+#include <cstring>                
 using namespace std;
 class String                      //base class
 {
@@ -15,8 +15,10 @@ public:
     }
     String(char s[])          //constructor 1, one arg
     {
-        strcpy_s(str, s);
-    }      //  convert string to String
+        cout << endl << s;
+        strcpy(str, s);
+        cout << endl << str;
+    }
     void display() const        //display the String
     {
         cout << str;
@@ -30,27 +32,29 @@ public:
 class Pstring : public String     //derived class 
 {
 public:
-    Pstring(const char s[]);        //constructor
+    Pstring(char s[]);        //constructor
 };
-Pstring::Pstring(const char s[])      //constructor for Pstring
+Pstring::Pstring(char s[])      //constructor for Pstring
 {
-    if (strlen(s) > SZ - 1)           //if too long,
+    if (strlen(s) > SZ - 1)
     {
         int j;
-        for (j = 0; j < SZ - 1; j++)   //copy the first SZ-1
-            str[j] = s[j];           //characters "by hand"
-        str[j] = '\0';              //add the null character
+        for (j = 0; j < SZ - 1; j++)
+            str[j] = s[j];
+        str[j] = '\0';
     }
-    else                           //not too long,
-        String(s);                  //so construct normally
+    else {
+        strncpy(str, s, SZ - 1);
+    }
 }
 int main()
-{                                        //define String
-    Pstring s1 = "This is a very long string which is probably "
+{
+    char s[] = "This is a very long string which is probably "
         "no, certainly--going to exceed the limit set by SZ.";
-    cout << "\ns1  ="; s1.display();           //display String
-
-    Pstring s2 = "This is a short string.";  //define String
+    Pstring s1 = s;
+    cout << "\ns1 = "; s1.display();           //display String
+    char k[] = "This is a short string.";
+    Pstring s2 = k;  //define String
     cout << "\ns2 = "; s2.display();           //display String
     cout << endl;
     return 0;

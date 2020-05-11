@@ -54,7 +54,6 @@ public:
         cout << "\nPlaying time: " << time;
     }
 };
-////////////////////////////////////////////////////////////////
 int main()
 {
     book book1;                        // define publications
