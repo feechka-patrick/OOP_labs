@@ -1,61 +1,103 @@
-//inheritance from String class
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <cstring>                
 using namespace std;
-class String                      //base class
+class String
 {
-protected:                     //Note: can't be private
-    enum { SZ = 80 };           //size of all String objects
-    char str[SZ];               //holds a C-string
+protected:
+    enum { SZ = 7 };
+    char str[SZ];
 public:
-    String()                    //constructor 0, no args
+    String()
     {
         str[0] = '\0';
     }
-    String(char s[])          //constructor 1, one arg
+    String(char s[])
     {
         cout << endl << s;
         strcpy(str, s);
         cout << endl << str;
     }
-    void display() const        //display the String
+    void display() const
     {
-        cout << str;
+        cout << " " << str;
     }
-    operator char* ()            //conversion function
+    operator char* ()
     {
         return str;
-    }          //convert String to C-string
+    }
 };
 
-class Pstring : public String     //derived class 
+class Pstring : public String
 {
 public:
-    Pstring(char s[]);        //constructor
-};
-Pstring::Pstring(char s[])      //constructor for Pstring
-{
-    if (strlen(s) > SZ - 1)
+    Pstring(char s[])
     {
-        int j;
-        for (j = 0; j < SZ - 1; j++)
-            str[j] = s[j];
-        str[j] = '\0';
+        if (strlen(s) > SZ - 1)
+        {
+            int j;
+            for (j = 0; j < SZ - 1; j++)
+                str[j] = s[j];
+            str[j] = '\0';
+        }
+        else {
+            strncpy(str, s, SZ - 1);
+        }
+    };
+};
+
+class Pstring2 : public Pstring
+{
+
+public:
+    Pstring2(char s[]) : Pstring(s) {}
+    Pstring2 Left(int k) {
+        char newstr[SZ];
+        int i = 0;
+        for (i = 0; i < k; i++) {
+            newstr[i] = str[i];
+        }
+        newstr[i] = '\0';
+        Pstring2 ns = newstr;
+        return ns;
     }
-    else {
-        strncpy(str, s, SZ - 1);
+    Pstring2 Right(int k) {
+        char newstr[SZ];
+        int i = SZ - k - 1, j = 0;
+        for (i; i < SZ; i++, j++) {
+            newstr[j] = str[i];
+        }
+        newstr[j] = '\0';
+        Pstring2 ns = newstr;
+        return ns;
     }
-}
+    Pstring2 Mid(int num, int ind) {
+        char newstr[SZ]; ind--;
+        int i = ind, j = 0;
+        for (i; i < ind + num; i++, j++) {
+            newstr[j] = str[i];
+        }
+        newstr[j] = '\0';
+        Pstring2 ns = newstr;
+        return ns;
+    }
+};
+
 int main()
 {
-    char s[] = "This is a very long string which is probably "
-        "no, certainly--going to exceed the limit set by SZ.";
-    Pstring s1 = s;
-    cout << "\ns1 = "; s1.display();           //display String
-    char k[] = "This is a short string.";
-    Pstring s2 = k;  //define String
-    cout << "\ns2 = "; s2.display();           //display String
+    char k[] = { 'h','e', 'l', 'l', 'o', 'y' };
+    Pstring2 exampleClass(k);
+    exampleClass.display();
+
+    Pstring2 exampleClass1 = exampleClass.Left(1);
     cout << endl;
-    return 0;
+    exampleClass1.display();
+
+    Pstring2 exampleClass2 = exampleClass.Right(2);
+    cout << endl;
+    exampleClass2.display();
+
+    Pstring2 exampleClass3 = exampleClass.Mid(4, 1);
+    cout << endl;
+    exampleClass3.display();
 }
