@@ -1,13 +1,13 @@
 //multiple inheritance with employees and degrees
 #include <iostream>
 using namespace std;
-const int LEN = 80;           //maximum length of names
-////////////////////////////////////////////////////////////////
-class student                 //educational background
+const int LEN = 80;
+
+class student
 {
 private:
-    char school[LEN];       //name of school or university
-    char degree[LEN];       //highest degree earned
+    char school[LEN];
+    char degree[LEN];
 public:
     void getedu()
     {
@@ -23,12 +23,12 @@ public:
         cout << "\n   Highest degree earned: " << degree;
     }
 };
-////////////////////////////////////////////////////////////////
+
 class employee
 {
 private:
-    char name[LEN];         //employee name
-    unsigned long number;   //employee number
+    char name[LEN];
+    unsigned long number;
 public:
     void getdata()
     {
@@ -41,12 +41,12 @@ public:
         cout << "\n   Number: " << number;
     }
 };
-////////////////////////////////////////////////////////////////
-class manager : private employee, private student  //management
+
+class manager : private employee, private student
 {
 private:
-    char title[LEN];        //"vice-president" etc.
-    double dues;            //golf club dues
+    char title[LEN];
+    double dues;
 public:
     void getdata()
     {
@@ -64,59 +64,40 @@ public:
     }
 };
 
-class scientist : private employee, private student
+class executive : public manager
 {
 private:
-    int pubs;     //number of publications
+    float premium;
+    int share;
 public:
     void getdata()
     {
-        employee::getdata();
-        cout << "   Enter number of pubs: "; cin >> pubs;
-        student::getedu();
+        manager::getdata();
+        cout << "  Enter the size of the award: ";
+        cin >> premium;
+        cout << "  Enter the number of share: ";
+        cin >> share;
     }
-    void putdata() const
+    void putdata()
     {
-        employee::putdata();
-        cout << "\n   Number of publications: " << pubs;
-        student::putedu();
+        manager::putdata();
+        cout << "\n  Size of the award: ";
+        cout << premium;
+        cout << "\n  The number of share: ";
+        cout << share;
     }
 };
-
-class laborer : public employee
-{
-};
-
 int main()
 {
-    manager m1;
-    scientist s1, s2;
-    laborer l1;
-
+    executive e1;
     cout << endl;
-    cout << "\nEnter data for manager 1";
-    m1.getdata();
 
-    cout << "\nEnter data for scientist 1";
-    s1.getdata();
+    cout << "\nEnter data for executive ";
+    e1.getdata();
 
-    cout << "\nEnter data for scientist 2";
-    s2.getdata();
+    cout << "\nData for executive ";
+    e1.putdata();
 
-    cout << "\nEnter data for laborer 1";
-    l1.getdata();
-
-    cout << "\nData on manager 1";
-    m1.putdata();
-
-    cout << "\nData on scientist 1";
-    s1.putdata();
-
-    cout << "\nData on scientist 2";
-    s2.putdata();
-
-    cout << "\nData on laborer 1";
-    l1.putdata();
     cout << endl;
     return 0;
 }
