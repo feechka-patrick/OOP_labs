@@ -99,7 +99,7 @@ void horse::display_horse(float elapsed_time) //for each horse
 
         int secs = int(finish_time) - mins * 60;
 
-        cout << " Time=" << mins << ":" << secs;
+        cout << " Time =" << mins << ":" << secs;
 
     }
 
@@ -208,12 +208,12 @@ public:
         horse::~horse();
     }
 
-    float GetDistance()
+    float distance()
     {
         return distance_run;
     }
 
-    void HorseTick()
+    void horsetick()
     {
         set_cursor_pos(1 + int(distance_run * CPF), 2 + horse_number * 2);
         set_color(static_cast<color>(cBLUE + horse_number));
@@ -252,7 +252,7 @@ public:
 
             for (int i = 0; i < total_horses; i++)
             {
-                if (hArray[horse_leader]->GetDistance() < hArray[i]->GetDistance())
+                if (hArray[horse_leader]->distance() < hArray[i]->distance())
                 {
                     horse_leader = i;
                 }
@@ -260,15 +260,15 @@ public:
 
             for (int i = 0; i < total_horses; i++)
             {
-                if (hArray[horse_leader]->GetDistance() - hArray[i]->GetDistance() > delta)
+                if (hArray[horse_leader]->distance() - hArray[i]->distance() > delta)
                 {
-                    delta = hArray[horse_leader]->GetDistance() - hArray[i]->GetDistance();
+                    delta = hArray[horse_leader]->distance() - hArray[i]->distance();
                 }
             }
 
-            if ((hArray[horse_leader]->GetDistance() > (track_length + 1.0 / CPF) / 2) && (hArray[horse_leader]->GetDistance() < (track_length + 1.0 / CPF)) && (delta <= 2.2f))
+            if ((hArray[horse_leader]->distance() > (track_length + 1.0 / CPF) / 2) && (hArray[horse_leader]->distance() < (track_length + 1.0 / CPF)) && (delta <= 2.2f))
             {
-                hArray[horse_leader]->HorseTick();
+                hArray[horse_leader]->horsetick();
             }
             wait(100);
         }
