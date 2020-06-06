@@ -23,6 +23,9 @@ public:
 		shillings = sh;
 		pence = pc;
 	}
+	int ster() {
+		return pounds * 240 + shillings * 12 + pence;
+	}
 	void getSterLing() {
 		string str;
 		cout << "Enter sum: ";
@@ -37,9 +40,9 @@ public:
 		pence = atoi(str.c_str());
 	}
 	void putSterling() {
-		cout << "?" << pounds << "." << shillings << "." << pence;
+		cout << "£" << pounds << "." << shillings << "." << pence;
 	}
-	
+
 };
 class bMoney {
 private:
@@ -108,5 +111,4 @@ int main() {
 	s1.getSterLing();
 	cout << " = "; m1 = s1;
 	m1.putmoney();
-} 
-
+}
